@@ -4,19 +4,20 @@ import cv2
 import time
 import datetime
 
+
 from utils import CFEVideoConf, image_resize
 import glob
 
 cap = cv2.VideoCapture(0)
 
 
-frames_per_seconds = 20
+frames_per_seconds = 30
 save_path='saved-media/timelapse.mp4'
-config = CFEVideoConf(cap, filepath=save_path, res='720p')
+config = CFEVideoConf(cap, filepath=save_path, res='1080p')
 out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
 timelapse_img_dir = 'images/timelapse/'
-seconds_duration = 20
-seconds_between_shots = .25
+seconds_duration = 300
+seconds_between_shots = 3.05  # 3.16  # for arm voltage 200
 
 if not os.path.exists(timelapse_img_dir):
     os.mkdir(timelapse_img_dir)
@@ -56,3 +57,5 @@ images_to_video(out, timelapse_img_dir)
 cap.release()
 out.release()
 cv2.destroyAllWindows()
+
+os.system('say -v Victoria time lapse completed!')
