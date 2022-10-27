@@ -10,14 +10,18 @@ import glob
 
 cap = cv2.VideoCapture(0)
 
+today = str(datetime.date.today())
+hour = str(datetime.datetime.now().hour)
+minute = str(datetime.datetime.now().minute)
+time_str = today + "_" + hour + "-" + minute
 
 frames_per_seconds = 30
-save_path='saved-media/timelapse.mp4'
+save_path=f'saved-media/timelapse_{time_str}.mp4'
 config = CFEVideoConf(cap, filepath=save_path, res='1080p')
 out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
-timelapse_img_dir = 'images/timelapse/'
-seconds_duration = 300
-seconds_between_shots = 3.05  # 3.16  # for arm voltage 200
+timelapse_img_dir = f'images/timelapse_{time_str}/'
+seconds_duration = 5400
+seconds_between_shots = 3.30  # 3.16  # for arm voltage 200
 
 if not os.path.exists(timelapse_img_dir):
     os.mkdir(timelapse_img_dir)
@@ -31,7 +35,7 @@ while datetime.datetime.now() < finish_time:
     than the preset finish time
     '''
     ret, frame      = cap.read()
-    filename        = f"{timelapse_img_dir}/{i}.jpg"
+    filename        = f"{timelapse_img_dir}/{str(i).zfill(4)}.jpg"
     i               += 1
     cv2.imwrite(filename, frame)
     time.sleep(seconds_between_shots)
@@ -52,7 +56,7 @@ def images_to_video(out, image_dir, clear_images=True):
         for file in image_list:
             os.remove(file)
 
-images_to_video(out, timelapse_img_dir)
+images_to_video(out, timelapse_img_dir, False)
 # When everything done, release the capture
 cap.release()
 out.release()
