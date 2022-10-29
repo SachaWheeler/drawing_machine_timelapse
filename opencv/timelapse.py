@@ -21,7 +21,7 @@ config = CFEVideoConf(cap, filepath=save_path, res='1080p')
 out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
 timelapse_img_dir = f'images/timelapse_{time_str}/'
 seconds_duration = 5400
-seconds_between_shots = 3.30  # 3.16  # for arm voltage 200
+seconds_between_shots = 3.13  # 3.16  # for arm voltage 200
 
 if not os.path.exists(timelapse_img_dir):
     os.mkdir(timelapse_img_dir)
