@@ -17,7 +17,6 @@ output_directory = 'saved-media/'
 def images_to_video(image_dir):
     video_file = os.path.join(output_directory, image_dir + ".mp4")
     print(f"{image_dir} -> {video_file}")
-    # return
     # cap = cv2.VideoCapture(0)
     # config = CFEVideoConf(cap, filepath=image_dir, res='1080p')
     # print(f"video type: {config.video_type}")
@@ -30,25 +29,21 @@ def images_to_video(image_dir):
 
     print(f"converting {image_dir}")
     image_list = glob.glob(f"images/{image_dir}/*.jpg")
-    # print(image_list)
-    # sorted_images = sorted(image_list, key=os.path.getmtime
     sorted_images = sorted(image_list)
-    # print(sorted_images)
     for file in sorted_images:
         # print(file)
         image_frame  = cv2.imread(file)
         out.write(image_frame)
-    # When everything done, release the capture
-    # cap.release()
+
     out.release()
-    # cv2.destroyAllWindows()
 
 
-# iterate over files in
-# that directory
+# iterate over files in the directory
 for image_dir in os.listdir(input_directory):
+    if image_dir == '.DS_Store':
+        continue
     if os.path.isfile(os.path.join(output_directory, image_dir + ".mp4")):
-        print("video file exists ")
+        print(f'{image_dir + ".mp4"} exists ')
         continue
     images_to_video(image_dir)
 
