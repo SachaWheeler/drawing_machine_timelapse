@@ -9,32 +9,47 @@ from utils import CFEVideoConf, image_resize
 import glob
 
 
-cap = cv2.VideoCapture(0)
-
 frames_per_seconds = 30
-save_path='saved-media/timelapse_2022-10-29_9-9.mp4'
-config = CFEVideoConf(cap, filepath=save_path, res='1080p')
-out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
-timelapse_img_dir = 'images/timelapse_2022-10-29_9-9/'
-seconds_duration = 5400
-seconds_between_shots = 3.05  # 3.16  # for arm voltage 200
 
-if not os.path.exists(timelapse_img_dir):
-    os.mkdir(timelapse_img_dir)
+input_directory = 'images/'
+output_directory = 'saved-media/'
 
-def images_to_video(out, image_dir, clear_images=True):
-    image_list = glob.glob(f"{image_dir}/*.jpg")
+def images_to_video(image_dir):
+    video_file = os.path.join(output_directory, image_dir + ".mp4")
+    print(f"{image_dir} -> {video_file}")
+    # return
+    # cap = cv2.VideoCapture(0)
+    # config = CFEVideoConf(cap, filepath=image_dir, res='1080p')
+    # print(f"video type: {config.video_type}")
+    # print(f"dims      : {config.dims}")
+    # video type: 1145656920
+    # dims      : (1920, 1080)
+    video_type = 1145656920
+    dims =  (1920, 1080)
+    out = cv2.VideoWriter(video_file, video_type, frames_per_seconds, dims)
+
+    print(f"converting {image_dir}")
+    image_list = glob.glob(f"images/{image_dir}/*.jpg")
+    # print(image_list)
     # sorted_images = sorted(image_list, key=os.path.getmtime
     sorted_images = sorted(image_list)
+    # print(sorted_images)
     for file in sorted_images:
-        print(file)
+        # print(file)
         image_frame  = cv2.imread(file)
         out.write(image_frame)
+    # When everything done, release the capture
+    # cap.release()
+    out.release()
+    # cv2.destroyAllWindows()
 
-images_to_video(out, timelapse_img_dir)
-# When everything done, release the capture
-cap.release()
-out.release()
-cv2.destroyAllWindows()
 
-os.system('say -v Victoria time lapse completed!')
+# iterate over files in
+# that directory
+for image_dir in os.listdir(input_directory):
+    if os.path.isfile(os.path.join(output_directory, image_dir + ".mp4")):
+        print("video file exists ")
+        continue
+    images_to_video(image_dir)
+
+os.system('say -v Victoria video completed!')
