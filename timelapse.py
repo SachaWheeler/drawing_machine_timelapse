@@ -20,7 +20,7 @@ save_path=f'saved-media/timelapse_{time_str}.mp4'
 config = CFEVideoConf(cap, filepath=save_path, res='1080p')
 out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
 timelapse_img_dir = f'images/timelapse_{time_str}/'
-seconds_duration = 15400
+# seconds_duration = 15400
 # 9.06 for 60v
 # 3.16  # for arm voltage 200
 delay  = 0.9
@@ -32,7 +32,7 @@ if not os.path.exists(timelapse_img_dir):
 now = datetime.datetime.now()
 finish_time = now + datetime.timedelta(seconds=seconds_duration)
 i = 0
-while datetime.datetime.now() < finish_time:
+while True:
     # start = time.time()
     ret, frame      = cap.read()
     filename        = f"{timelapse_img_dir}/{str(i).zfill(4)}.jpg"
