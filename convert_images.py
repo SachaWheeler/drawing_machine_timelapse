@@ -12,7 +12,7 @@ import glob
 frames_per_seconds = 30
 
 input_directory = 'images/'
-output_directory = 'saved-media/'
+output_directory = 'video/'
 
 def images_to_video(image_dir):
     video_file = os.path.join(output_directory, image_dir + ".mp4")

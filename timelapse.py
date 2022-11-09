@@ -16,7 +16,7 @@ minute = str(datetime.datetime.now().minute)
 time_str = today + "_" + hour + "-" + minute
 
 frames_per_seconds = 30
-save_path=f'saved-media/timelapse_{time_str}.mp4'
+save_path=f'video/timelapse_{time_str}.mp4'
 config = CFEVideoConf(cap, filepath=save_path, res='1080p')
 out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
 timelapse_img_dir = f'images/timelapse_{time_str}/'
