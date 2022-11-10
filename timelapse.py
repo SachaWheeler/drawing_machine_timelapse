@@ -30,7 +30,7 @@ if not os.path.exists(timelapse_img_dir):
     os.mkdir(timelapse_img_dir)
 
 now = datetime.datetime.now()
-finish_time = now + datetime.timedelta(seconds=seconds_duration)
+# finish_time = now + datetime.timedelta(seconds=seconds_duration)
 i = 0
 while True:
     # start = time.time()
@@ -45,21 +45,6 @@ while True:
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
 
-
-def images_to_video(out, image_dir, clear_images=True):
-    image_list = glob.glob(f"{image_dir}/*.jpg")
-    sorted_images = sorted(image_list, key=os.path.getmtime)
-    for file in sorted_images:
-        image_frame  = cv2.imread(file)
-        out.write(image_frame)
-    if clear_images:
-        '''
-        Remove stored timelapse images
-        '''
-        for file in image_list:
-            os.remove(file)
-
-images_to_video(out, timelapse_img_dir, False)
 # When everything done, release the capture
 cap.release()
 out.release()
