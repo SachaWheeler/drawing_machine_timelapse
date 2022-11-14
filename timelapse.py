@@ -4,13 +4,23 @@ import cv2
 import time
 import datetime
 import serial
-
-
 from utils import CFEVideoConf, image_resize
 import glob
+import serial.tools.list_ports
 
-PORT = "/dev/cu.Bluetooth-Incoming-Port"
-arduino = serial.Serial(port=PORT, baudrate=115200, timeout=.1)
+
+ports = list(serial.tools.list_ports.comports())
+for p in ports:
+    if "/dev/cu.usbmodem" not in p[0]:
+        continue
+    try:
+        arduino = serial.Serial(
+            port=p[0],
+            baudrate=115200,
+            timeout=1,
+            bytesize=8)
+            print(p[0])
+            print(arduino)
 
 cap = cv2.VideoCapture(0)
 
@@ -38,16 +48,13 @@ now = datetime.datetime.now()
 i = 0
 while True:
     # start = time.time()
-    ret, frame      = cap.read()
-    filename        = f"{timelapse_img_dir}/{str(i).zfill(4)}.jpg"
-    i               += 1
-    cv2.imwrite(filename, frame)
-    # end = time.time()
-    # print(end - start)
+    data_2 = arduino.read()
+    if len(data_2.strip()):  # we have a character
+        ret, frame      = cap.read()
+        filename        = f"{timelapse_img_dir}/{str(i).zfill(4)}.jpg"
+        i               += 1
+        cv2.imwrite(filename, frame)
 
-    time.sleep(seconds_between_shots)
-    if cv2.waitKey(20) & 0xFF == ord('q'):
-        break
 
 # When everything done, release the capture
 cap.release()
