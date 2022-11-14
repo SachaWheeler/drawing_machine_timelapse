@@ -3,10 +3,14 @@ import numpy as np
 import cv2
 import time
 import datetime
+import serial
 
 
 from utils import CFEVideoConf, image_resize
 import glob
+
+PORT = "/dev/cu.Bluetooth-Incoming-Port"
+arduino = serial.Serial(port=PORT, baudrate=115200, timeout=.1)
 
 cap = cv2.VideoCapture(0)
 
