@@ -19,8 +19,10 @@ for p in ports:
             baudrate=115200,
             timeout=1,
             bytesize=8)
-            print(p[0])
-            print(arduino)
+        print(p[0])
+        print(arduino)
+    except:
+        exit(0)
 
 cap = cv2.VideoCapture(0)
 
@@ -31,8 +33,8 @@ time_str = today + "_" + hour + "-" + minute
 
 frames_per_seconds = 30
 save_path=f'video/timelapse_{time_str}.mp4'
-config = CFEVideoConf(cap, filepath=save_path, res='1080p')
-out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
+# config = CFEVideoConf(cap, filepath=save_path, res='1080p')
+# out = cv2.VideoWriter(save_path, config.video_type, frames_per_seconds, config.dims)
 timelapse_img_dir = f'images/timelapse_{time_str}/'
 # seconds_duration = 15400
 # 9.06 for 60v
@@ -58,7 +60,7 @@ while True:
 
 # When everything done, release the capture
 cap.release()
-out.release()
+# out.release()
 cv2.destroyAllWindows()
 
 os.system('say -v Victoria time lapse completed!')
