@@ -2,3 +2,4 @@ video/
 images/
 .DS_Store
 opencv/.DS_Store
+__pycache__
