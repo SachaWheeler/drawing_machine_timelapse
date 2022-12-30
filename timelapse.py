@@ -4,25 +4,31 @@ import datetime
 import serial
 import glob
 import serial.tools.list_ports
+import pprint
 
 
 ports = list(serial.tools.list_ports.comports())
 for p in ports:
-    if "/dev/cu.usbmodem" not in p[0]:
+    pprint.pprint(p)
+    pprint.pprint(p[0])
+    pprint.pprint(p[1])
+    pprint.pprint(p[2])
+    if "/dev/ttyACM0" not in p[0]:
         continue
     try:
-        camera = serial.Serial(
+        arduino_trigger = serial.Serial(
             port=p[0],
             baudrate=115200,
             timeout=None,  # None?
             bytesize=8)
         print(p[0])
-        print(camera)
-    except:
+        print(arduino_trigger)
+    except Exception as e:
+        pprint.pprint(e)
         print("Cannot connect to modem device")
         exit(0)
 try:
-    camera
+    arduino_trigger
 except:
     print("USB modem device not found")
     exit(0)
@@ -42,7 +48,7 @@ if not os.path.exists(timelapse_img_dir):
 i = 0
 try:
     while True:
-        data_2 = camera.read()
+        data_2 = arduino_trigger.read()
         if len(data_2.strip()):  # we have a character
             ret, frame      = cap.read()
             filename        = f"{timelapse_img_dir}/{str(i).zfill(4)}.jpg"

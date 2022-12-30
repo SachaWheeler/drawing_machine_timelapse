@@ -5,9 +5,11 @@ import time
 import serial.tools.list_ports
 ports = list(serial.tools.list_ports.comports())
 for p in ports:
-    # print(p)
+    """
+    print(p)
     if "/dev/cu.usbmodem" not in p[0]:
         continue
+    """
     try:
         arduino = serial.Serial(
             port=p[0],
