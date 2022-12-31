@@ -1,6 +1,9 @@
 import cv2
 import os
 
+IMAGE_WIDTH = 1920
+IMAGE_HEIGHT = 1080
+
 # source: https://stackoverflow.com/a/44659589
 def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
     # initialize the dimensions of the image to be resized and

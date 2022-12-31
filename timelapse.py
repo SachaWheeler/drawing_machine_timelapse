@@ -5,14 +5,12 @@ import serial
 import glob
 import serial.tools.list_ports
 import pprint
+from utils import IMAGE_WIDTH, IMAGE_HEIGHT
 
 
 ports = list(serial.tools.list_ports.comports())
 for p in ports:
-    pprint.pprint(p)
     pprint.pprint(p[0])
-    pprint.pprint(p[1])
-    pprint.pprint(p[2])
     if "/dev/ttyACM0" not in p[0]:
         continue
     try:
@@ -25,15 +23,20 @@ for p in ports:
         print(arduino_trigger)
     except Exception as e:
         pprint.pprint(e)
-        print("Cannot connect to modem device")
+        print("Cannot connect to serial device")
         exit(0)
 try:
     arduino_trigger
 except:
-    print("USB modem device not found")
+    print("USB serial device not found")
     exit(0)
 
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, IMAGE_WIDTH)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, IMAGE_HEIGHT)
+cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
+cap.set(28, focus)  # set the focus manually
+# print(cv2.CAP_PROP_AUTOFOCUS)
 
 today = str(datetime.date.today())
 hour = str(datetime.datetime.now().hour)
