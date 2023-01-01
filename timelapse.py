@@ -31,11 +31,14 @@ except:
     print("USB serial device not found")
     exit(0)
 
+# https://stackoverflow.com/questions/40348656/editing-camera-settings-by-using-opencv
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, IMAGE_WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, IMAGE_HEIGHT)
 cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
-cap.set(28, focus)  # set the focus manually
+cap.set(28, 10)  # set the focus manually
+cap.set(10, 105)  # set the brightness
+cap.set(11, 30)  # set the contrast
 # print(cv2.CAP_PROP_AUTOFOCUS)
 
 today = str(datetime.date.today())
