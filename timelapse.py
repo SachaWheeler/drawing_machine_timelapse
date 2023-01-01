@@ -35,7 +35,7 @@ except:
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, IMAGE_WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, IMAGE_HEIGHT)
-cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)      # turn off autofocuas
+cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)      # turn off autofocus
 cap.set(cv2.CAP_PROP_FOCUS , 10)        # set the focus manually
 cap.set(cv2.CAP_PROP_BRIGHTNESS, 105)   # set the brightness
 cap.set(cv2.CAP_PROP_CONTRAST, 30)      # set the contrast
