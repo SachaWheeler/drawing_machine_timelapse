@@ -10,7 +10,7 @@ from utils import IMAGE_WIDTH, IMAGE_HEIGHT
 
 ports = list(serial.tools.list_ports.comports())
 for p in ports:
-    pprint.pprint(p[0])
+    # pprint.pprint(p[0])
     if "/dev/ttyACM0" not in p[0]:
         continue
     try:
@@ -19,8 +19,9 @@ for p in ports:
             baudrate=115200,
             timeout=None,
             bytesize=8)
-        print(p[0])
-        print(arduino_trigger)
+        # print(p[0])
+        # print(arduino_trigger)
+        print("connected to serial port")
     except Exception as e:
         pprint.pprint(e)
         print("Cannot connect to serial device")
