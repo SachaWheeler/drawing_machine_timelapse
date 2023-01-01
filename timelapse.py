@@ -53,8 +53,8 @@ if not os.path.exists(timelapse_img_dir):
 i = 0
 try:
     while True:
-        data_2 = arduino_trigger.read()
-        if len(data_2.strip()):  # we have a character
+        serial_data = arduino_trigger.read()
+        if len(serial_data.strip()):  # we have a character
             ret, frame      = cap.read()
             filename        = f"{timelapse_img_dir}/{str(i).zfill(4)}.jpg"
             i               += 1
