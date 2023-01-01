@@ -17,7 +17,7 @@ for p in ports:
         arduino_trigger = serial.Serial(
             port=p[0],
             baudrate=115200,
-            timeout=None,  # None?
+            timeout=None,
             bytesize=8)
         print(p[0])
         print(arduino_trigger)
@@ -35,11 +35,10 @@ except:
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, IMAGE_WIDTH)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, IMAGE_HEIGHT)
-cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
-cap.set(28, 10)  # set the focus manually
-cap.set(10, 105)  # set the brightness
-cap.set(11, 30)  # set the contrast
-# print(cv2.CAP_PROP_AUTOFOCUS)
+cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)      # turn off autofocuas
+cap.set(cv2.CAP_PROP_FOCUS , 10)        # set the focus manually
+cap.set(cv2.CAP_PROP_BRIGHTNESS, 105)   # set the brightness
+cap.set(cv2.CAP_PROP_CONTRAST, 30)      # set the contrast
 
 today = str(datetime.date.today())
 hour = str(datetime.datetime.now().hour)
